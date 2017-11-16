@@ -19,19 +19,31 @@
  1.0.1 Username/Emailaddress Overflow hidden not working (CSS)
  */
 
-require({
-	packages: [{
-		name: "jquery21",
-		location: "../../widgets/jQueryLib", main: "jquery-211-min"
-	}]
-},
+// require({
+// 	packages: [{
+// 		name: "jquery21",
+// 		location: "../../widgets/jQueryLib", main: "jquery-211-min"
+// 	}]
+// },
 
-	["jquery21"], function(jQuery21) {
+// 	["jquery21"], function(jQuery21) {
 
-    dojo.provide('ProfileMenu.widget.ProfileMenu');
+//     dojo.provide('ProfileMenu.widget.ProfileMenu');
 
-    dojo.declare('ProfileMenu.widget.ProfileMenu', [mxui.widget._WidgetBase, dijit._Templated, dijit._Container, dijit._Contained, mxui.mixin._Contextable], {
+//     dojo.declare('ProfileMenu.widget.ProfileMenu', [mxui.widget._WidgetBase, dijit._Templated, dijit._Container, dijit._Contained, mxui.mixin._Contextable], {
+define([
+    "dojo/_base/declare",
+    "mxui/widget/_WidgetBase",
+    "dijit/_TemplatedMixin",
+    "dojo/_base/lang",
+    "jquery21",
+    "dojo/text!ProfileMenu/widget/templates/ProfileMenu.html",
+    "dojo/request/xhr"
 
+], function (declare, _WidgetBase, _TemplatedMixin, lang, jQuery21, template, xhr) {
+    "use strict";
+
+    return declare("ProfileMenu.widget.ProfileMenu", [ _WidgetBase ], {
         /**
          * Internal variables.
          * ======================
@@ -45,7 +57,7 @@ require({
         _imageGuid: null,
 
         // Template path
-        templatePath: dojo.moduleUrl('ProfileMenu', 'widget/templates/ProfileMenu.html'),
+        templateString: template,
 
         /**
          * Mendix Widget methods.
@@ -68,9 +80,9 @@ require({
 
             mx.ui.openForm(this.panelForm, {
 				domNode: this._profileMenu,
-                callback: dojo.hitch(this, function() {
-                    jQuery21("[id^=mxui_widget_ActionButton]").each(dojo.hitch(this, function( index, element ) {
-                            jQuery21(element).click(dojo.hitch(this, function() {
+                callback: lang.hitch(this, function() {
+                    jQuery21("[id^=mxui_widget_ActionButton]").each(lang.hitch(this, function( index, element ) {
+                            jQuery21(element).click(lang.hitch(this, function() {
                                 var menu = jQuery21(this._profileMenu);
                                 menu.removeClass('open').fadeOut(200);
                                 menu.parent().css('display', 'none');
@@ -107,8 +119,8 @@ require({
                 filter: {
                     amount: 1
                 },
-                callback: dojo.hitch(this, function (objs) {
-                    jQuery21.each(objs, dojo.hitch(this, function (index, currObj) {
+                callback: lang.hitch(this, function (objs) {
+                    jQuery21.each(objs, lang.hitch(this, function (index, currObj) {
                         if (this.imageObject != currObj._guid) {
                             this.imageObject = currObj._guid;
 
@@ -117,7 +129,7 @@ require({
                             }
                             this.subHandle = this.subscribe({
                                 guid: this.imageObject,
-                                callback: dojo.hitch(this, function () {
+                                callback: lang.hitch(this, function () {
                                     this._setProfileImage(true);
                                 })
                             });
@@ -152,8 +164,6 @@ require({
             // To be able to just alter one variable in the future we set an internal variable with the domNode that this widget uses.
             this._wgtNode = this.domNode;
 
-            dojo.require("ProfileMenu.widget.lib.ProfileMenuLib");
-
         },
 
         _setProfileImage: function (preventCache) {
@@ -168,23 +178,42 @@ require({
                 url = defaultImage;
             }
 
-            var xhrArgs = {
-                url: url,
+            // var xhrArgs = {
+            //     url: url,
+            //     handleAs: "text",
+			// 	preventCache: preventCache,
+            //     failOk: true,
+            //     handle: function (error, ioargs) {
+            //         if (ioargs.xhr.status == 200) {
+            //             targetNode.src = ioargs.url;
+            //         } else {
+            //             targetNode.src = defaultImage;
+            //             console.log('ProfileMenu - image could not be retrieved from server | error_code ' + ioargs.xhr.status);
+            //         }
+            //     }
+            // };
+
+            xhr(url, {
                 handleAs: "text",
 				preventCache: preventCache,
-                failOk: true,
-                handle: function (error, ioargs) {
-                    if (ioargs.xhr.status == 200) {
-                        targetNode.src = ioargs.url;
-                    } else {
-                        targetNode.src = defaultImage;
-                        console.log('ProfileMenu - image could not be retrieved from server | error_code ' + ioargs.xhr.status);
-                    }
+                failOk: true
+              }).then(function (error, ioargs) {
+                if (ioargs.xhr.status == 200) {
+                    targetNode.src = ioargs.url;
+                } else {
+                    targetNode.src = defaultImage;
+                    console.log('ProfileMenu - image could not be retrieved from server | error_code ' + ioargs.xhr.status);
                 }
-            };
+            });
 
-            var deferred = dojo.xhrGet(xhrArgs);
-        }
+            // var deferred = dojo.xhrGet(xhrArgs);
+            }
+        })
+    });
 
-    })
-});
+require({
+    packages: [ {
+        name: "jquery21",
+        location: "../../widgets/jQueryLib", main: "jquery-211-min"
+    }]
+}, [ "jquery21", "ProfileMenu/widget/lib/ProfileMenuLib", "ProfileMenu/widget/ProfileMenu" ], function (jQuery21) { });
