@@ -1,0 +1,128 @@
+.profile-menu-wrapper {
+    float: right;
+}
+.profile-menu li {
+    list-style: none;
+}
+.profilemenu td {
+    padding: 0px;
+}
+.profilemenu hr {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.mx-profile-menu {
+    position: fixed;
+    border: none;
+    top: 55px;
+    right: 10px;
+    z-index: 10100;
+    width: 260px;
+    height: 335px;
+    display: block;
+}
+.profilemenu {
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-background-clip: padding;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    background-color: #fdfdfd;
+    text-align: center;
+}
+.profilemenu:after, .profilemenu:before {
+    position: absolute;
+    right: 15px;
+    bottom: 100%;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    content: " ";
+    pointer-events: none;
+}
+.profilemenu:after {
+    margin-right: 0;
+    border-width: 7px 10px;
+    border-color: rgba(253, 253, 253, 0);
+    border-bottom-color: #fdfdfd;
+}
+.profilemenu:before {
+    margin-right: -1px;
+    border-width: 8px 11px;
+    border-color: rgba(203, 203, 203, 0);
+    border-bottom-color: #cbcbcb;
+}
+.profilemenu .avatar {
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    border-radius: 100%;
+    width: 64px;
+    height: auto;
+    margin-top: 15px;
+}
+.profilemenu .username {
+    margin: 5px 5px 0px 5px;
+    color: #1d1e23;
+    font-size: 14px;
+    font-family: "OpenSansSemibold", Arial, Helvetica, Sans-Serif;
+}
+.profilemenu .emailaddress {
+    margin: 0px 5px 5px 5px;
+    color: #a9a9a9;
+    font-size: 13px;
+    font-family: "OpenSansRegular", Arial, Helvetica, Sans-Serif;
+}
+/** Patch 3892 */
+.profilemenu .emailaddress, .profilemenu .username{
+    width: 230px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/** Patch 3892 **/
+.profilemenu .footer {
+    padding: 5px 0;
+    border-top: 1px solid #cbcbcb;
+    background-color: #f5f5f5;
+    border-radius: 0px 8px;
+}
+.profilemenu .footer a {
+    display: block;
+    color: #1d1e23;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: "OpenSansSemibold", Arial, Helvetica, Sans-Serif;
+}
+.profilemenu .footer a:hover {
+    text-decoration: underline;
+}
+li.profile-menu-button {
+    list-style: none;
+}
+li.profile-menu-button div {
+    position: relative;
+    margin-top: 5px;
+    margin-left: -30px;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+}
+li.profile-menu-button div img {
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+}

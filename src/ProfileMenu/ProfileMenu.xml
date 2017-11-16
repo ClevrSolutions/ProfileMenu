@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="ProfileMenu.widget.ProfileMenu" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/">
+    <name>ProfileMenu</name>
+    <description>ExpertDesk Profile Menu</description>
+
+    <icon>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+        jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAHZSURBVDhPrZBLS1tBHMVF6YcwiLirhG4khNCl
+        VGM3Uk3aRUujVgvxsTFKWwot2hiNik0Nao15P26Se/N+3CQF+wHsQjfa7xBdmS7DhePNn6FWJrt6
+        4MD858z5DTMd+E/dP0AUJWi6e9DV+QD9D7WoVmssaS8O0Nvbh4EBHQyGx9DrDdBoenB8/JOlvDiA
+        VvsIQ0NGDA+PwGh8isHBJ1hcXGIpLw6g0+kxNmbC+LgZJtNzjI4+g8OxwVJeHEAQ4jCbX8BimYRl
+        YgovX72G3e5gKS8OcHLyi0rW2XnMzi3gzfRbiFKKpbw4QEuTUzOw2ZaxtPwOVus8rq8bLOHVFnB+
+        8Rs2tfzp8wref/gIWa6whFdbQD5fxMqqHRvOLTg3t9X1mvqMNOr1OjtxqzuA09MzfFE/rFV0fXOT
+        d9175B3XLhzrTkRjAhRFYY1/AOFwFJtbO9g/OMTBdw8OPV6y58iHI68fXl8APn+Q5q8uNxqNP9T7
+        C2ht+gMhBIJhBEMRhFRgOBIjR6KCenMcMSEBIZ6kuVr7QT0CNJtNuqUVxhMiOZGUkBRT9HYplUEq
+        nSWnMzmyKGVuAZeXV1TOZPPI5grIqZ+YL5RQKJbJxZKMUrmCslwly5UanVUUBTdUFWC8pCty+AAA
+        AABJRU5ErkJggg==
+    </icon>
+
+    <properties>
+        <property key='panelForm' type='form'>
+            <caption>Content form</caption>
+            <category>General</category>
+            <description>Form to be attached to menu popup</description>
+        </property>
+        <property key="imageEntity" type="entity">
+            <caption>Image Entity</caption>
+            <category>General</category>
+            <description>Entity containing image to show as handle</description>
+        </property>
+        <property key="entityConstraint" type="entityConstraint" entityProperty="imageEntity" required="true">
+            <caption>Entity Constraint</caption>
+            <category>General</category>
+            <description>Constraint by which account specific image is retrieved</description>
+        </property>
+        <property key="defaultImage" type="image" defaultValue="" required="false">
+            <caption>Default Handle Image</caption>
+            <category>General</category>
+            <description>The default image to display if image was not selected or could not be found</description>
+        </property>
+    </properties>
+</widget>
+
