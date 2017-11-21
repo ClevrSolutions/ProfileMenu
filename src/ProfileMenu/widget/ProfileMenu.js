@@ -43,7 +43,7 @@ define([
 ], function (declare, _WidgetBase, _TemplatedMixin, lang, jQuery21, template, xhr) {
     "use strict";
 
-    return declare("ProfileMenu.widget.ProfileMenu", [ _WidgetBase ], {
+    return declare("ProfileMenu.widget.ProfileMenu", [ _WidgetBase, _TemplatedMixin ], {
         /**
          * Internal variables.
          * ======================
@@ -121,14 +121,14 @@ define([
                 },
                 callback: lang.hitch(this, function (objs) {
                     jQuery21.each(objs, lang.hitch(this, function (index, currObj) {
-                        if (this.imageObject != currObj._guid) {
-                            this.imageObject = currObj._guid;
+                        if (this.imageObject != currObj) {
+                            this.imageObject = currObj;
 
                             if (this.subHandle) {
                                 this.unsubscribe(this.subHandle);
                             }
                             this.subHandle = this.subscribe({
-                                guid: this.imageObject,
+                                guid: this.imageObject._guid,
                                 callback: lang.hitch(this, function () {
                                     this._setProfileImage(true);
                                 })
@@ -173,40 +173,21 @@ define([
             var url = '';
 
             if (this.imageObject != null) {
-                url = '/file?guid=' + this.imageObject + '&thumb=true';
+                url = mx.data.getDocumentUrl(this.imageObject.getGuid(), this.imageObject.get("changedDate"));
             } else {
                 url = defaultImage;
             }
 
-            // var xhrArgs = {
-            //     url: url,
-            //     handleAs: "text",
-			// 	preventCache: preventCache,
-            //     failOk: true,
-            //     handle: function (error, ioargs) {
-            //         if (ioargs.xhr.status == 200) {
-            //             targetNode.src = ioargs.url;
-            //         } else {
-            //             targetNode.src = defaultImage;
-            //             console.log('ProfileMenu - image could not be retrieved from server | error_code ' + ioargs.xhr.status);
-            //         }
-            //     }
-            // };
 
-            xhr(url, {
-                handleAs: "text",
-				preventCache: preventCache,
-                failOk: true
-              }).then(function (error, ioargs) {
-                if (ioargs.xhr.status == 200) {
-                    targetNode.src = ioargs.url;
-                } else {
+            mx.data.getImageUrl(url,
+                lang.hitch(this,function(objectUrl) {
+                    targetNode.src = objectUrl;
+                }),
+                lang.hitch(this,function(error){
                     targetNode.src = defaultImage;
-                    console.log('ProfileMenu - image could not be retrieved from server | error_code ' + ioargs.xhr.status);
-                }
-            });
-
-            // var deferred = dojo.xhrGet(xhrArgs);
+                    console.log('ProfileMenu - image could not be retrieved from server | error_code ' + error);
+                })
+            );
             }
         })
     });
