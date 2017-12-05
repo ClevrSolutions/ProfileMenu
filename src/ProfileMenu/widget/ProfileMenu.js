@@ -19,28 +19,21 @@
  1.0.1 Username/Emailaddress Overflow hidden not working (CSS)
  */
 
-// require({
-// 	packages: [{
-// 		name: "jquery21",
-// 		location: "../../widgets/jQueryLib", main: "jquery-211-min"
-// 	}]
-// },
-
-// 	["jquery21"], function(jQuery21) {
-
-//     dojo.provide('ProfileMenu.widget.ProfileMenu');
-
-//     dojo.declare('ProfileMenu.widget.ProfileMenu', [mxui.widget._WidgetBase, dijit._Templated, dijit._Container, dijit._Contained, mxui.mixin._Contextable], {
-define([
+require({
+	packages: [{
+		name: "jquery21",
+		location: "../../widgets/jQueryLib", main: "jquery-211-min"
+	}]
+},["jquery21",
     "dojo/_base/declare",
     "mxui/widget/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dojo/_base/lang",
-    "jquery21",
     "dojo/text!ProfileMenu/widget/templates/ProfileMenu.html",
-    "dojo/request/xhr"
-
-], function (declare, _WidgetBase, _TemplatedMixin, lang, jQuery21, template, xhr) {
+    "dojo/request/xhr",
+    "ProfileMenu/widget/lib/ProfileMenuLib",
+    "ProfileMenu/widget/ProfileMenu"
+], function(jQuery21, declare, _WidgetBase, _TemplatedMixin, lang, template, xhr) {
     "use strict";
 
     return declare("ProfileMenu.widget.ProfileMenu", [ _WidgetBase, _TemplatedMixin ], {
@@ -191,10 +184,3 @@ define([
             }
         })
     });
-
-require({
-    packages: [ {
-        name: "jquery21",
-        location: "../../widgets/jQueryLib", main: "jquery-211-min"
-    }]
-}, [ "jquery21", "ProfileMenu/widget/lib/ProfileMenuLib", "ProfileMenu/widget/ProfileMenu" ], function (jQuery21) { });
